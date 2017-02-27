@@ -18,3 +18,33 @@ var app = express();
 
 
 //Body-parser
+app.use(logger("dev"));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
+//Setting Static public
+app.use(express.static("public"));
+
+mongoose.connect("mongodb://localhost/NewsScrapper");
+
+//Mongoose set to db
+var db = mongoose.connection;
+
+
+//Mongoose error
+db.on("error", function(error) {
+  console.log("Mongoose Error: ", error);
+});
+
+
+//This is where scrapper content goes
+app.post("/scrapper", function(req, res) {});
+
+
+
+
+// Listening port 3000
+app.listen(3000, function() {
+  console.log("App running on port 3000!");
+});
