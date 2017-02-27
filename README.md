@@ -9,7 +9,9 @@ immense-bayou-85375
 https://immense-bayou-85375.herokuapp.com/
 
 
-
+Link of website I am scrapping:
+NY Times Science Articles
+https://www.nytimes.com/section/science?action=click&pgtype=Homepage&region=TopBar&module=HPMiniNav&contentCollection=Science&WT.nav=page
 
 
 
