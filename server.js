@@ -38,8 +38,14 @@ db.on("error", function(error) {
 });
 
 
-//This is where scrapper content goes
-app.post("/scrapper", function(req, res) {});
+
+app.post("/scrape", function(req, res) {
+
+
+  //This is where scrapper content goes
+
+
+});
 
 
 

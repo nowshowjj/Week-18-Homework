@@ -9,12 +9,14 @@ var UsersSchema = new Schema({
 
   user:{
     type: String,
-    trim: true
+    trim: true,
+    required: "Name can not be left blank"
   },
 
   comment: {
     type: String,
-    trim: true
+    trim: true,
+    required: "Comment cannot be left blank"
   }
 
 }); // end of UsersSchema
