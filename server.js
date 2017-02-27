@@ -10,7 +10,7 @@ mongoose.Promise = Promise;
 
 
 // Model names
-var News = require("./news.js");
+//var News = require("./news.js");
 var Users = require("./users.js");
 
 //Express
