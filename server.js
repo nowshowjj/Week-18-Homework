@@ -27,6 +27,15 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 
+
+// Set Handlebars
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+
+
 //db configuration
 mongoose.connect("mongodb://localhost/Week18");
 var db = mongoose.connection;
@@ -43,6 +52,13 @@ db.once("open", function() {
 
 
 // Routes
+
+app.get('/', function(req, res) {
+	res.render("index", {layout: "main"});
+});
+
+
+
 
 
 app.get("/scrape", function(req, res) {
@@ -157,14 +173,15 @@ app.post("/articles/:id", function(req, res) {
 
 
 
-
-
-
-
-
-
-
 // Listen on port 3000
 app.listen(3000, function() {
   console.log("App running on port 3000!");
 });
+
+
+
+
+
+
+
+
