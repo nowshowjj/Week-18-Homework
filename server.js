@@ -51,6 +51,15 @@ db.once("open", function() {
 });
 
 
+
+// require("./routes/html-routes.js")(app);
+
+
+
+
+
+
+
 // Routes
 
 app.get('/', function(req, res) {
@@ -94,11 +103,6 @@ app.get("/scrape", function(req, res) {
 });
 
 
-
-
-
-
-
 // This will get the articles we scraped from the mongoDB
 app.get("/articles", function(req, res) {
 
@@ -111,11 +115,6 @@ app.get("/articles", function(req, res) {
     }
   });
 });
-
-
-
-
-
 
 
 // Grab an article by it's ObjectId
@@ -131,9 +130,6 @@ app.get("/articles/:id", function(req, res) {
     }
   });
 });
-
-
-
 
 
 
