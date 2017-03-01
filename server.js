@@ -56,18 +56,11 @@ db.once("open", function() {
 
 
 
-
-
-
-
 // Routes
 
 app.get('/', function(req, res) {
 	res.render("index", {layout: "main"});
 });
-
-
-
 
 
 app.get("/scrape", function(req, res) {
@@ -132,7 +125,6 @@ app.get("/articles/:id", function(req, res) {
 });
 
 
-
 // Create a new note
 app.post("/articles/:id", function(req, res) {
   // Create a new note and pass the req.body
@@ -163,9 +155,6 @@ app.post("/articles/:id", function(req, res) {
     }
   });
 });
-
-
-
 
 
 
