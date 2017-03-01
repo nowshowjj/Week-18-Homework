@@ -7,7 +7,7 @@ var site_to_scrape = "http://www.echojs.com/";
 
 
 
-function site_scraper(){
+function site_scraper(callback){
     //Grabbing data from Echo.
       request(site_to_scrape, function(error, response, html) {
       
@@ -36,6 +36,7 @@ function site_scraper(){
         });
 
       });
+      callback();
     });
   
 } //end of site_scraper

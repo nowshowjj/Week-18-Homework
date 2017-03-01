@@ -1,6 +1,6 @@
-//Requires
+ //Requires
 var express = require('express');
-var app = express.Router();
+var router = express.Router();
 
 //Models
 var Article = require("../models/Article");
@@ -11,22 +11,19 @@ var scrape = require('../scraper/scrape');
 
 
 // Routes
-module.exports = function(app) {
+
 
 
 // Home page will display articles we scraped from the mongoDB
-  app.get('/', function(req, res) {
-  	
+  router.get('/', function(req, res) {
+    console.log('hit home!');
+      
     Article.find({}, function(error, doc) {
-      if (error) {
-        console.log("There is a error: ", error);
-      }
-      else {
-        res.render('index', {title: "Scraper", articles: data});
-      }
+      if (error) console.log("There is a error: ", error);
+      
+      res.render('index', {title: "Scraper", articles: doc});
     });
 
-    res.render("index");
   });
 
 
@@ -38,7 +35,7 @@ module.exports = function(app) {
 
 
 // scrape route
-app.get('/scrape', function(request, response) {
+router.get('/scrape', function(request, response) {
   // custom function
   scrape.site_scraper(function() {
     res.render('/');
@@ -55,7 +52,7 @@ app.get('/scrape', function(request, response) {
 
 
   // Grab an article by it's ObjectId
-  app.get("/articles/:id", function(req, res) {
+  router.get("/articles/:id", function(req, res) {
     Article.findOne({ "_id": req.params.id })
     .populate("note")
     .exec(function(error, doc) {
@@ -73,7 +70,7 @@ app.get('/scrape', function(request, response) {
 
 
   // Create a new note
-  app.post("/articles/:id", function(req, res) {
+  router.post("/articles/:id", function(req, res) {
     // Create a new note and pass the req.body
     var newNote = new Note(req.body);
 
@@ -102,7 +99,4 @@ app.get('/scrape', function(request, response) {
     });
   });
 
-
-
-
-};
+module.exports = router;

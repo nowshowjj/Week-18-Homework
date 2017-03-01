@@ -1,4 +1,4 @@
-// Dependencies
+ // Dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
@@ -13,6 +13,10 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+app.use(bodyParser.json());
+
+
+
 app.use(express.static("public"));
 
 
@@ -22,14 +26,15 @@ app.set("view engine", "handlebars");
 
 
 // Required the routes
-require("./routes/html-routes.js");
+var routes = require("./routes/html-routes.js");
+
 
 // Begin Routes
-app.get('/', function(req, res) {
-	res.render("index", {layout: "main"});
-});
+app.use('/', routes);
+
 
 // Listen on port 3000
 app.listen(3000, function() {
   console.log("App running on port 3000!");
 });
+ 
