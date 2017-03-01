@@ -5,42 +5,67 @@ var router = express.Router();
 //Models
 var Article = require("../models/Article");
 var Note = require("../models/Note");
-var scrape = require('../scraper/scrape');
-
-
+var site_scraper = require('../scraper/scrape');
 
 
 // Routes
 
-
-
 // Home page will display articles we scraped from the mongoDB
   router.get('/', function(req, res) {
-    console.log('hit home!');
+    console.log('! You have been discovered !');
       
-    Article.find({}, function(error, doc) {
-      if (error) console.log("There is a error: ", error);
+    Article.find({}, function(err, doc) {
+      if (err) console.log("There is a error: ", error);
       
       res.render('index', {title: "Scraper", articles: doc});
     });
-
   });
 
 
 
 
 
+router.get('/scrape', function(req, res) {
 
-
-
-
-// scrape route
-router.get('/scrape', function(request, response) {
-  // custom function
-  scrape.site_scraper(function() {
-    res.render('/');
+  //Custome function
+  site_scraper.site_scraper(function() {
+    res.redirect('/');
   });
+});
 
+
+  // Grab an article by it's ObjectId
+router.get('/note/:id', function(req, res) {
+  Article.findOne({_id: req.params.id})
+    .populate("note")
+    .exec(function(err, doc) {
+      if (err) console.log("There is an error getting this Note: ", error);
+      res.send(doc.note);
+      // console.log(doc.note);
+    });
+});
+
+
+
+
+
+// new note
+router.post('/new_note/:id', function(req, res) {
+
+  var new_note = new Note(req.body);
+  new_note.save(function(err, doc) {
+
+// find and update 
+    Article.findOneAndUpdate(
+      {_id: req.params.id},
+      {$push: {note: doc._id}},
+      {new: true},
+
+      function(err, new_document) {
+        if (err) console.log("An error has occured", error);
+        res.send(new_document);
+      });
+  });
 });
 
 
@@ -49,54 +74,16 @@ router.get('/scrape', function(request, response) {
 
 
 
-
-
-  // Grab an article by it's ObjectId
-  router.get("/articles/:id", function(req, res) {
-    Article.findOne({ "_id": req.params.id })
-    .populate("note")
-    .exec(function(error, doc) {
-      if (error) {
-        console.log(error);
-      }
-      else {
-        res.json(doc);
-      }
-    });
+router.post('/delete_note/:id', function(req, res) {
+  console.log(req.params.id);
+  
+  Note.findByIdAndRemove({_id: request.params.id}, function(err) {
+    if (err) console.log('This note cannot be deleted: ', error);
+    res.send();
   });
+})
 
 
 
-
-
-  // Create a new note
-  router.post("/articles/:id", function(req, res) {
-    // Create a new note and pass the req.body
-    var newNote = new Note(req.body);
-
-    //save the new note
-    newNote.save(function(error, doc) {
-      // Log errors
-      if (error) {
-        console.log(error);
-      }
-     
-      else {
-        // Use the article id to find Note 
-        Article.find({ "_id": req.params.id }, { "note": doc._id })
-        // Execute query
-        .exec(function(err, doc) {
-          // Log errors
-          if (err) {
-            console.log(err);
-          }
-          else {
-            // send the doc to browser
-            res.send(doc);
-          }
-        });
-      }
-    });
-  });
 
 module.exports = router;

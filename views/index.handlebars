@@ -1,66 +1,63 @@
+
+  <nav>
+    <div class="nav-wrapper blue darken-1">
+      <a href="#" class="brand-logo">EchoJs Scraper!</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">		
+        <li><a href="/scrape">Start Scrape</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+
+<br>
+<br>
+<br>
+
+<!-- All the articles come next -->
 <div class="container">
 
+	<table>
+		<tbody>
 
+			{{#each articles}}
+			<div class=row>
 
+				<div class="col s8">
+					<h5>{{this.title}}</h5>
+					<a href="{{this.link}}" class="collection-item red-text" target="_blank">Click to read</a>
+				</div>
+				<div class="col s4">
+					<button class="noteBtn waves-effect waves-light btn-flat light-blue darken-3 white-text" id="{{this._id}}">Leave a comments!</button>
+				</div>
 
-	<div class="text-center">
-		<h5>Example Article</h5> <!-- Replace with {{this.title}} -->
-		<h6><a href="">Link Example</a></h6> <!-- Replace with {{this.link}} -->
-		
+			</div>
+			{{/each}}
 
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-		  Leave a comment
-		</button>
+		</tbody>
+	</table>
 
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		        ...
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+</div>
 
-		<hr><br>
+<!-- modal that displays the user notes -->
+<div id="modal_note" class="modal modal-fixed-footer">
+
+    <div class="modal-content">
+		<p>Comments</p>
+		<ul class="messages collection"></ul>
 	</div>
+	
+	<div class="modal-footer">
+        <form name="note" id="notes_form">
+                    <input required placeholder="Leave a comment" type="text" name="note_text" id="noteText">
+            <a href="/new_note/" + {{this.id}}><button class="btn light-blue darken-3 left" type="submit" id="noteBtn">
+                Post Note!
+            </button></a>
+            <a href="#" class="modal-action modal-close waves-effect waves-light btn-flat">Close</a>
+        </form>
+    </div>
+
+</div>
 
 
 
-
-<!-- 
-	<div>
-		{{#each articles}}
-		    <h5>{{this.title}}</h5>
-		    <h3><a href="{{this.link}}">Go to Article</a></h3>
-		    <hr><br>
-		{{/each}}
-	</div>
- -->
-
-
-
-
-
-
-
-
-</div> <!-- end on main container -->
-
-
-
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
