@@ -6,7 +6,7 @@ var Promise = require('bluebird');
 mongoose.Promise = Promise;
 
 //db configuration
-mongoose.connect("mongodb://localhost/Week18");
+mongoose.connect("mongodb://<dbuser>:<dbpassword>@ds119380.mlab.com:19380/heroku_8n8jg9gb");
 var db = mongoose.connection;
 
 //mongoose errors
